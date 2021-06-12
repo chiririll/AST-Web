@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Test OIS</title>
+
+    <link rel="stylesheet" href="styles/desktop.css">
+
+    <script type="text/javascript" src="scripts/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="scripts/questions.js"></script>
+    <script type="text/javascript" src="scripts/test.js"></script>
+</head>
+
+<body>
+    <h1 id="header">Test OIS</h1>
+    <div class="container">
+        <h2>Вопрос №<span id="qid"></span></h2>
+        <p id="Q">Q: </p>
+        <p id="S">S: </p>
+        
+        <form id="answers">
+
+        </form>
+    </div>
+    
+    <div class="container btns">
+        <button id="check" onclick="check()">Check</button>
+        <button id="next" onclick="next()">Next</button>
+        <button id="rand" onclick="rand()">Rand</button>
+    </div>
+    
+</body>
+
+</html>
