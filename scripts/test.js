@@ -14,6 +14,12 @@ $(document).ready(setData);
 /* Making test */
 function setData() {
     $("#qid").text(q+1);
+    $("#qcnt").text(questions.length+1);
+
+    let progress = Math.floor(q/questions.length*100) + "%";
+    $("#greenBar").text(progress);
+    $("#greenBar").css('width', progress);
+    
     $("#Q").text(questions[q]["task"]);
     $("#S").text(questions[q]["question"]);
 

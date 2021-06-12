@@ -14,6 +14,7 @@ body {
     min-height: 300px;
     width: 80%;
 }
+
 .btns {
     min-height: 0%;
 }
@@ -29,6 +30,7 @@ body {
 #answers {
     text-align: left;
 }
+
 .rAnswHide {
     display: none;
 }
@@ -37,4 +39,18 @@ button {
     width: 30%;
     display: inline;
     height: 50px;
+}
+
+#greyProgress {
+    width: 100%;
+    background-color: #ddd;
+}
+
+#greenBar {
+    width: 50%;
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
 }
