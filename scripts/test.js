@@ -69,6 +69,9 @@ function setCompliance() {
 
 /* Buttons */
 function check() {
+    $("input").each(function () {
+        $(this).attr('disabled', true);
+    });
     $(".right").each(function () {
         $(this).css('background-color', 'yellowgreen');
     });
