@@ -45,7 +45,11 @@ function setSingleMany() {
 
 function setInput() {
     $("#answers").append("<p class=\"\" id=\"varInp\"><input name=\"v1\" type=\"text\"></p>");
-    $("#answers").append("<p class=\"rAnswHide\" >Right answer: " + questions[q]["vars"][0].split(':')[1].trim() + "</p>");
+    $("#answers").append("<p class=\"rAnswHide\">Right answers:</p><ul id=\"answersInp\" class=\"rAnswHide\"></ul>");
+    
+    for (i = 0; i < questions[q]["vars"].length / 2; i++) {
+        $("#answersInp").append("<li>" + questions[q]["vars"][i].split(':')[1].trim() + "</li>");
+    }
 }
 
 function setCompliance() {
