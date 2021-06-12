@@ -39,7 +39,9 @@ function setSingleMany() {
     vars.forEach(function(v, i) {
         text = v.split(':')[1].trim();
         el_class = v.split(':')[0].trim() == '+' ? "right" : "wrong";
-        $("#answers").append("<p class=\"" + el_class + "\"><input name=\"v1\" type=\"" + type + "\"> " + text + "</p>");
+        $("#answers").append(
+            "<p class=\"" + el_class + "\"><input type=\"" + type + "\"" + (type == "radio" ? " onclick=\"check()\"" : "") + ">" + text + "</p>"
+        );
     });
 }
 
