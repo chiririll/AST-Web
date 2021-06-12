@@ -14,8 +14,8 @@ $(document).ready(setData);
 /* Making test */
 function setData() {
     $("#qid").text(q+1);
-    $("#Q").text(questions[q]["task"] + ":");
-    $("#S").text(questions[q]["question"] + ":");
+    $("#Q").text(questions[q]["task"]);
+    $("#S").text(questions[q]["question"]);
 
     switch (questions[q]["type"]) {
         case "single":
