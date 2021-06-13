@@ -75,7 +75,6 @@ function checkInput() {
     let match = false;
     questions[q]['vars'].forEach(function(v) {
         v = v.split(':')[1].trim().replaceAll('*', '.?').replaceAll("#$#", '.*');
-        console.log(v);
         try {
             let re = new RegExp(v, 'i');
             match = match || re.test(val);
@@ -83,7 +82,30 @@ function checkInput() {
     });
     return match;
 }
+
+function checkBox() {
+    let match = true;
+    let checked = 0;
+    $("input:radio, input:checkbox").each(function() {
+        if (this.checked) {
+            if ($(this).parent().attr('class') == "right")
+                match = match && true;
+            else
+                match = false;
+            checked++;
+        } else if ($(this).parent().attr('class') == "right")
+            match = false;
+    })
+    if (checked == 0) return false;
+    return match;
+}
 /* ======== */
+
+/* Saving results */
+function writeCookies(key, val) {
+    document.cookie = key + '=' + val + '; max-age=604800';
+}
+/* ============== */
 
 /* Buttons */
 function check() {
@@ -91,7 +113,10 @@ function check() {
         $(this).attr('disabled', true);
     });
     
-    $("#vInp").css('background-color', checkInput() ? "yellowgreen" : "palevioletred")
+    let answ = checkInput() || checkBox();
+    $("#vInp").css('background-color', answ ? "yellowgreen" : "palevioletred")
+    writeCookies(q, answ);
+
 
     $(".right").each(function () {
         $(this).css('background-color', 'yellowgreen');
