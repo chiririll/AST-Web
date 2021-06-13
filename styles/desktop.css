@@ -10,9 +10,10 @@ body {
     padding: 15px;
     background-color: gainsboro;
     min-width: 300px;
-    max-width: 600px;
+    max-width: 1000px;
     min-height: 300px;
     width: 80%;
+    font-size: 18pt;
 }
 
 .btns {
@@ -25,6 +26,7 @@ body {
 
 #Q {
     text-align: left;
+    font-style: italic;
 }
 
 #answers {
@@ -38,7 +40,19 @@ body {
 button {
     width: 30%;
     display: inline;
-    height: 50px;
+    height: 80px;
+    font-size: 18pt;
+}
+
+input {
+    width: 25px;
+    height: 25px;
+}
+
+input[type="text"] {
+    width: 50%;
+    height: 25px;
+    font-size: 18pt;
 }
 
 #greyProgress {
