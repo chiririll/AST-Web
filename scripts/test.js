@@ -136,6 +136,6 @@ function rand() {
     window.location.replace("?" + randInt(0, questions.length));
 }
 function results() {
-    window.location.replace("analyze.html?" + randInt(0, questions.length));
+    window.location.replace("analyze.html?" + q);
 }
 /* ======= */
