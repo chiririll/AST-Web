@@ -1,3 +1,9 @@
+let q = 0;
+if (!isNaN(Number(window.location.href.split('?')[1])))
+    q = Number(window.location.href.split('?')[1]);
+if (q >= questions.length)
+    q = 0;
+
 function inArr(arr, el) {
     arr.forEach(function(arrEl) {
         if (arrEl == el)
@@ -28,7 +34,7 @@ function displayThemes() {
         $("#mistakes").append(`<li>${theme}</li>`);
     });
 }
-/*if () {
-    $("#cityContainer").append($("#businessCityTarget option:selected").text() + "<br>");
-    citySet.push($("#businessCityTarget option:selected").text());
-}*/
+
+function returnTest() {
+    window.location.replace("index.html?" + q);
+}

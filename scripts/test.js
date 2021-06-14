@@ -117,7 +117,6 @@ function check() {
     $("#vInp").css('background-color', answ ? "yellowgreen" : "palevioletred")
     writeCookies(q, answ);
 
-
     $(".right").each(function () {
         $(this).css('background-color', 'yellowgreen');
     });
@@ -135,5 +134,8 @@ function next() {
 
 function rand() {
     window.location.replace("?" + randInt(0, questions.length));
+}
+function results() {
+    window.location.replace("analyze.html?" + randInt(0, questions.length));
 }
 /* ======= */
