@@ -23,8 +23,9 @@ function appendThemes() {
         let q = Number(res[0]);
         let theme = questions[q]['theme'];
 
-        if (res[1].trim() == 'false' && !inArr(themes, theme))
-            themes.push(q+1 + "). " + theme);
+        if (res[1].trim() == 'false' && !inArr(themes, theme)) {
+            themes.push(`<a href="index.html?${q}">${q+1}).</a> ${theme}`);
+        }
     });
     displayThemes();
 }
