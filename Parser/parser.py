@@ -13,9 +13,17 @@ def get_type(sym):
         return 'unknown'
 
 
+def is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+
 questions = []
 q = None
-f = open("questions.txt", encoding='utf-8')
+f = open("questions/pravo.txt", encoding='utf-8')
 for line in f.readlines():
     line = line.replace('\r', '').replace('\n', '').strip()
     if not len(line):
@@ -31,7 +39,7 @@ for line in f.readlines():
         q['task'] = line[2:].strip()
     elif line[0] == 'S':
         q['question'] = line[2:].strip()
-    elif line[0] in ['+', '-', 'R', 'L']:
+    elif line[0] in ['+', '-', 'R', 'L'] or is_int(line[0]):
         q['vars'].append(line)
         q['type'] = get_type(line[0])
 
@@ -53,7 +61,7 @@ for q in questions:
     else:
         q['type'] = "single"
 
-with codecs.open("questions.json", "w", "utf-8") as file:
+with codecs.open("../Web/scripts/questions.js", "w", "utf-8") as file:
     file.write(u'\ufeff')
     file.writelines(json.dumps(questions, ensure_ascii=False))
 
