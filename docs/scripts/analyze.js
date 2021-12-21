@@ -24,7 +24,7 @@ function appendThemes() {
         let theme = questions[q]['theme'];
 
         if (res[1].trim() == 'false' && !inArr(themes, theme))
-            themes.push(theme);
+            themes.push(q+1 + "). " + theme);
     });
     displayThemes();
 }
