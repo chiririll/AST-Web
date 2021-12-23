@@ -23,7 +23,7 @@ def is_int(s):
 
 questions = []
 q = None
-f = open("questions/pravo.txt", encoding='utf-8')
+f = open("questions/ekologia.txt", encoding='utf-8')
 for line in f.readlines():
     line = line.replace('\r', '').replace('\n', '').strip()
     if not len(line):
@@ -61,8 +61,9 @@ for q in questions:
     else:
         q['type'] = "single"
 
-with codecs.open("../Web/scripts/questions.js", "w", "utf-8") as file:
+with codecs.open("../docs/scripts/questions.js", "w", "utf-8") as file:
     file.write(u'\ufeff')
+    file.write("questions = ")
     file.writelines(json.dumps(questions, ensure_ascii=False))
 
 print(len(questions))
