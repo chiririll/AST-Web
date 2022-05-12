@@ -23,7 +23,7 @@ def is_int(s):
 
 questions = []
 q = None
-f = open("questions/ekologia.txt", encoding='utf-8')
+f = open("questions/OIB.txt", encoding='utf-8')
 for line in f.readlines():
     line = line.replace('\r', '').replace('\n', '').strip()
     if not len(line):
