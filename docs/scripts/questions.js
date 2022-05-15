@@ -246,7 +246,7 @@
 		vars: ["+: защиты информации", "+: защит#$# информа#$#"],
 	},
 	{
-		type: "enter",
+		type: "order",
 		theme: "",
 		task: "",
 		question: "Установите грифы секретности в порядке возрастания",
@@ -730,7 +730,7 @@
 		],
 	},
 	{
-		type: "enter",
+		type: "order",
 		theme: "",
 		task: "Выберите правильный ответ",
 		question: "Установите грифы секретности от самого высшего к низжему",
@@ -3575,7 +3575,7 @@
 		],
 	},
 	{
-		type: "enter",
+		type: "order",
 		theme: "",
 		task: "",
 		question:
@@ -3629,7 +3629,7 @@
 		],
 	},
 	{
-		type: "enter",
+		type: "order",
 		theme: "",
 		task: "",
 		question:
@@ -3637,7 +3637,7 @@
 		vars: ["1: A", "2: В", "3: C", "4: D"],
 	},
 	{
-		type: "enter",
+		type: "order",
 		theme: "",
 		task: "",
 		question:
@@ -3934,7 +3934,7 @@
 		],
 	},
 	{
-		type: "enter",
+		type: "order",
 		theme: "",
 		task: "",
 		question:

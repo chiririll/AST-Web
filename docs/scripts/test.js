@@ -31,9 +31,8 @@ function setData() {
         case "enter":
             setInput();
             break
-        case "compliance":
-            setCompliance();
-            break;
+        default:
+            justDisplay();
     }
 }
 
@@ -60,7 +59,7 @@ function setInput() {
     }
 }
 
-function setCompliance() {
+function justDisplay() {
     questions[q]["vars"].forEach(function(v) {
         $("#answers").append(`<p>${v}</p>`);
     });

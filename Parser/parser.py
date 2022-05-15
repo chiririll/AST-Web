@@ -9,6 +9,8 @@ def get_type(sym):
         return 'many'
     elif sym in ['R', 'L']:
         return 'compliance'
+    elif is_int(sym):
+        return 'order'
     else:
         return 'unknown'
 
@@ -55,8 +57,9 @@ del questions[0]
 f.close()
 
 for q in questions:
-    if q is None or q['type'] == "compliance":
+    if q is None or q['type'] in ["compliance", "order"]:
         continue
+
     bad_answers = 0
     for var in q['vars']:
         if var[0] == '-':
