@@ -51,6 +51,8 @@ for line in f.readlines():
         last_line = 'variant'
     elif last_line == 'question':
         q['question'] += ' ' + line
+    elif last_line == 'variant':
+        q['vars'][-1] += ' ' + line
 
 del q
 del questions[0]
