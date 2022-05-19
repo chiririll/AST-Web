@@ -45,6 +45,9 @@ for line in f.readlines():
     elif line[0] == 'S':
         q['question'] = line[2:].strip()
         last_line = 'question'
+    elif line[0] == 'V':
+        # TODO: Add theme
+        pass
     elif line[0] in ['+', '-', 'R', 'L'] or is_int(line[0]):
         q['vars'].append(line)
         q['type'] = get_type(line[0])
