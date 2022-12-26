@@ -48,12 +48,12 @@ for line in f.readlines():
     elif line[0] == 'V':
         # TODO: Add theme
         pass
-    elif line[0] in ['+', '-', 'R', 'L'] or is_int(line[0]):
+    elif line[1] == ':' and line[0] in ['+', '-', 'R', 'L'] or is_int(line[0]):
         q['vars'].append(line)
         q['type'] = get_type(line[0])
         last_line = 'variant'
     elif last_line == 'question':
-        q['question'] += ' ' + line
+        q['question'] += '\n' + line
     elif last_line == 'variant':
         q['vars'][-1] += ' ' + line
 
