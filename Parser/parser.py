@@ -1,7 +1,7 @@
 import codecs
 import json
 
-FILENAME = "questions/OIB.txt"
+FILENAME = "questions/boss.txt"
 
 
 def is_int(s):
@@ -39,7 +39,6 @@ def main():
 
         if len(line) > 1 and line[1] == ':':
             pass
-
 
         if line[0] in ['I', 'Q', 'S'] and len(q['vars']) != 0 or q is None:
             questions.append(q)
