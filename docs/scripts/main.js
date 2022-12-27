@@ -52,9 +52,13 @@ function setSingleMany() {
     vars.forEach(function(v, i) {
         el_class = v[1] ? "right" : "wrong";
         $("#answers").append(
-            `<p class="${el_class}"><input type="${type}"` + (type == 'radio' ? ' onclick="check()"' : '') + `/>${v[0]}</p>`
+            `<p class="${el_class}"><label><input type="${type}"` + (type == 'radio' ? ' onclick="check()"' : '') + `/>${v[0]}</label></p>`
         );
     });
+
+    $("#back").prop('disabled', true);
+    $("#rand").prop('disabled', true);
+    $("#next").prop('disabled', true);
 }
 
 function setInput() {
@@ -166,10 +170,19 @@ function check() {
     });
 
     $(".hidden-block").removeClass("hidden-block");
+    
+    $("#back").prop('disabled', false);
+    $("#rand").prop('disabled', false);
+    $("#next").prop('disabled', false);
 }
 
 function next() {
     window.location.replace("?" + (q < questions.length-1 ? q + 1 : 0));
+}
+
+function back()
+{
+    window.location.replace("?" + (q > 0 ? q - 1 : 0));
 }
 
 function rand() {

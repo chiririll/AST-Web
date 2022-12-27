@@ -28,15 +28,21 @@
 
         </div>
     </div>
-    
-    <div class="container btns">
-        <button id="check" onclick="check()">Check</button>
-        <button id="next" onclick="next()">Next</button>
-        <button id="rand" onclick="rand()">Rand</button>
-        <br/><br/>
-        <button onclick="results();" style="display: block; width: 90%; margin: 0 auto;">Results</button>
-    </div>
-    
+
+    <table class="container btns">
+        <tr><td>
+            <button id="check" onclick="check()" style="display: block; width: 90%; margin: auto;">Check</button>
+        </td></tr>
+        <tr><td>
+            <button id="back" onclick="back()">&#60; Back</button>
+            <button id="rand" onclick="rand()">Rand</button>
+            <button id="next" onclick="next()">Next &#62;</button>
+        </td></tr>
+        <tr><td>
+            <button onclick="results();" style="display: block; width: 90%; margin: auto;">Results</button>
+        </td></tr>
+    </table>
+
 </body>
 
 </html>
