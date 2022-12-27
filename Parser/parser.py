@@ -4,7 +4,7 @@ import json
 from Types import *
 
 SUBJ = "boss"
-VERSION = "1.1"
+VERSION = "1.2"
 
 INPUT = f"questions/{SUBJ}.txt"
 OUTPUT = f"../docs/scripts/questions_{SUBJ}_v{VERSION}.js"
@@ -92,9 +92,9 @@ def find_question_type(quest: dict) -> QuestionType:
         types[t] += 1
 
     if types.get('+', 0) == 1 and types.get('-', 0) >= 1:
-        return QuestionType.Multiple
-    if types.get('+', 0) > 1 and types.get('-', 0) >= 1:
         return QuestionType.Single
+    if types.get('+', 0) > 1 and types.get('-', 0) >= 1:
+        return QuestionType.Multiple
     if (types.get('+', 0) >= 1 or types.get('#', 0) >= 1) and len(types) <= 2:
         return QuestionType.Enter
 
