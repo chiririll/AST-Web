@@ -23,6 +23,8 @@ function setData() {
     $("#Q").text(questions[q]["task"]);
     $("#S").text(questions[q]["question"]);
 
+    $(document).on('keypress',function(e) { if (e.which == '13') check(); });
+
     switch (questions[q]["type"]) {
         case "single":
         case "many":
@@ -53,7 +55,7 @@ function setSingleMany() {
 function setInput() {
     $("#answers").append('<p id="varInp"><input id="vInp" type="text"/></p>');
     $("#answers").append('<p class="rAnswHide">Right answers:</p><ul id="answersInp" class="rAnswHide"></ul>');
-    
+
     for (i = 0; i < questions[q]["vars"].length / 2; i++) {
         $("#answersInp").append(`<li>${questions[q]["vars"][i].split(':')[1].trim()}</li>`);
     }
