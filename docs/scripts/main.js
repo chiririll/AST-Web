@@ -42,15 +42,14 @@ function setData() {
 }
 
 function setSingleMany() {
-    var vars = questions[q]["vars"].sort(function(){
+    var vars = questions[q]["opts"].sort(function(){
         return Math.random() - 0.5;
     });
     var type = questions[q]["type"] == "single" ? "radio" : "checkbox";
     vars.forEach(function(v, i) {
-        text = v.split(':')[1].trim();
-        el_class = v.split(':')[0].trim() == '+' ? "right" : "wrong";
+        el_class = v[1] ? "right" : "wrong";
         $("#answers").append(
-            `<p class="${el_class}"><input type="${type}"` + (type == 'radio' ? ' onclick="check()"' : '') + `/>${text}</p>`
+            `<p class="${el_class}"><input type="${type}"` + (type == 'radio' ? ' onclick="check()"' : '') + `/>${v[0]}</p>`
         );
     });
 }
@@ -58,39 +57,33 @@ function setSingleMany() {
 function setInput() {
     $("#answers").append('<p id="varInp"><input id="vInp" type="text"/></p>');
     $("#answers").append('<p class="rAnswHide">Right answers:</p><ul id="answersInp" class="rAnswHide"></ul>');
+    
+    questions[q]["opts"].forEach(function(opt){
+        $("#answersInp").append(`<li>${opt}</li>`);
+    })
+}
 
-    for (i = 0; i < questions[q]["vars"].length / 2; i++) {
-        $("#answersInp").append(`<li>${questions[q]["vars"][i].split(':')[1].trim()}</li>`);
-    }
+function toTitleCase(str)
+{
+    return str.charAt(0).toUpperCase() + str.substr(1);
 }
 
 function setCompliance()
 {
     $("#answers").append(`<table id="ansTable"></table>`);
-    //$("#leftCol").append(`<details id="Ls"><summary>Left</summary></details>`);
-    //$("#rigthCol").append(`<details id="Rs"><summary>Right</summary></details>`);
-
-    lS = [];
-    rS = [];
-
-    questions[q]["vars"].forEach(function(v) {
-        if (v[0] == 'R')
-            rS.push(v);
-        else if (v[0] == 'L')
-            lS.push(v);
-        else
-            $("#answers").append(`<p>${v}</p>`);
+    
+    let opts = questions[q]["opts"].sort(function(){
+        return Math.random() - 0.5;
     });
 
-    for (let i = 0; i < Math.max(lS.length, rS.length); i++)
-    {
-        $("#ansTable").append(`<tr>` + `<td>` + (i < lS.length ? lS[i] : "") + `</td>` + `<td class="left-compliance">` + (i < rS.length ? rS[i] : "") + `</td>` + `</tr>`);
-    }
+    opts.forEach(function(opt, i) {
+        $("#ansTable").append(`<tr><td>${i + 1}. ${toTitleCase(opt[0])}</td><td class="right-compliance">${opt[1]}</td></tr>`);
+    });
 }
 
 function justDisplay() {
-    questions[q]["vars"].forEach(function(v) {
-        $("#answers").append(`<p>${v}</p>`);
+    questions[q]["opts"].forEach(function(opt) {
+        $("#answers").append(`<p>${opt}</p>`);
     });
 }
 /* =========== */
@@ -101,10 +94,10 @@ function checkInput() {
     if (!val) return false;
 
     let match = false;
-    questions[q]['vars'].forEach(function(v) {
-        v = v.split(':')[1].trim().replaceAll('*', '.?').replaceAll("#$#", '.*');
+    questions[q]['opts'].forEach(function(opt) {
+        opt = opt.replaceAll('*', '.?').replaceAll("#$#", '.*');
         try {
-            let re = new RegExp(v, 'i');
+            let re = new RegExp(opt, 'i');
             match = match || re.test(val);
         } catch (err) {}
     });
@@ -158,7 +151,7 @@ function check() {
         $(this).css('display', 'block');
     });
 
-    $(".left-compliance").removeClass("left-compliance");
+    $(".right-compliance").removeClass("right-compliance");
 }
 
 function next() {

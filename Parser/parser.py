@@ -4,11 +4,10 @@ import json
 from Types import *
 
 SUBJ = "boss"
-VERSION = "1.2"
+VERSION = "1.3"
 
 INPUT = f"questions/{SUBJ}.txt"
-#OUTPUT = f"../docs/scripts/questions_{SUBJ}_v{VERSION}.js"
-OUTPUT = f"test.js"
+OUTPUT = f"../docs/scripts/questions_{SUBJ}_v{VERSION}.js"
 MAX_TYPE_LEN = 3
 
 
