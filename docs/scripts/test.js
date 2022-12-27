@@ -33,6 +33,9 @@ function setData() {
         case "enter":
             setInput();
             break
+        case "compliance":
+            setCompliance();
+            break;
         default:
             justDisplay();
     }
@@ -58,6 +61,30 @@ function setInput() {
 
     for (i = 0; i < questions[q]["vars"].length / 2; i++) {
         $("#answersInp").append(`<li>${questions[q]["vars"][i].split(':')[1].trim()}</li>`);
+    }
+}
+
+function setCompliance()
+{
+    $("#answers").append(`<table id="ansTable"></table>`);
+    //$("#leftCol").append(`<details id="Ls"><summary>Left</summary></details>`);
+    //$("#rigthCol").append(`<details id="Rs"><summary>Right</summary></details>`);
+
+    lS = [];
+    rS = [];
+
+    questions[q]["vars"].forEach(function(v) {
+        if (v[0] == 'R')
+            rS.push(v);
+        else if (v[0] == 'L')
+            lS.push(v);
+        else
+            $("#answers").append(`<p>${v}</p>`);
+    });
+
+    for (let i = 0; i < Math.max(lS.length, rS.length); i++)
+    {
+        $("#ansTable").append(`<tr>` + `<td>` + (i < lS.length ? lS[i] : "") + `</td>` + `<td class="left-compliance">` + (i < rS.length ? rS[i] : "") + `</td>` + `</tr>`);
     }
 }
 
@@ -114,9 +141,12 @@ function check() {
         $(this).attr('disabled', true);
     });
     
-    let answ = checkInput() || checkBox();
-    $("#vInp").css('background-color', answ ? "yellowgreen" : "palevioletred")
-    writeCookies(q, answ);
+    if (questions[q]["type"] != "compliance")
+    {
+        let answ = checkInput() || checkBox();
+        $("#vInp").css('background-color', answ ? "yellowgreen" : "palevioletred")
+        writeCookies(q, answ);
+    }
 
     $(".right").each(function () {
         $(this).css('background-color', 'yellowgreen');
@@ -127,6 +157,8 @@ function check() {
     $(".rAnswHide").each(function () {
         $(this).css('display', 'block');
     });
+
+    $(".left-compliance").removeClass("left-compliance");
 }
 
 function next() {

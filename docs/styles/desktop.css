@@ -68,3 +68,17 @@ input[type="text"] {
     line-height: 30px;
     color: white;
 }
+
+table {
+    border-spacing: 10px;
+}
+
+.left-compliance {
+    background-color: gray;
+    color: transparent;
+}
+
+.left-compliance:hover {
+    background-color: transparent;
+    color: black;
+}
