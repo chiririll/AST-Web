@@ -68,7 +68,7 @@ class Question:
         else:
             try:
                 idx = int(parts[0])
-                self.__options['order'].insert(idx, ': '.join(parts))
+                self.__options['order'].insert(idx, [idx, parts[1]])
             except ValueError:
                 pass
 

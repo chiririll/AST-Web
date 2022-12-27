@@ -36,6 +36,9 @@ function setData() {
         case "compliance":
             setCompliance();
             break;
+        case "order":
+            setOrder();
+            break;
         default:
             justDisplay();
     }
@@ -77,7 +80,18 @@ function setCompliance()
     });
 
     opts.forEach(function(opt, i) {
-        $("#ansTable").append(`<tr><td>${i + 1}. ${toTitleCase(opt[0])}</td><td class="right-compliance">${opt[1]}</td></tr>`);
+        $("#ansTable").append(`<tr><td>${i + 1}. ${toTitleCase(opt[0])}</td><td class="hidden-block">${opt[1]}</td></tr>`);
+    });
+}
+
+function setOrder()
+{
+    let opts = questions[q]["opts"].sort(function(){
+        return Math.random() - 0.5;
+    });
+
+    opts.forEach(function(opt){
+        $("#answers").append(`<p><span class="hidden-block">${opt[0]}.</span> ${opt[1]}</p>`);
     });
 }
 
@@ -134,7 +148,7 @@ function check() {
         $(this).attr('disabled', true);
     });
     
-    if (questions[q]["type"] != "compliance")
+    if (questions[q]["type"] != "compliance" && questions[q]["type"] != "order")
     {
         let answ = checkInput() || checkBox();
         $("#vInp").css('background-color', answ ? "yellowgreen" : "palevioletred")
@@ -151,7 +165,7 @@ function check() {
         $(this).css('display', 'block');
     });
 
-    $(".right-compliance").removeClass("right-compliance");
+    $(".hidden-block").removeClass("hidden-block");
 }
 
 function next() {

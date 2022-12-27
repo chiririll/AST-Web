@@ -73,12 +73,12 @@ table {
     border-spacing: 10px;
 }
 
-.right-compliance {
+.hidden-block {
     background-color: gray;
     color: transparent;
 }
 
-.right-compliance:hover {
+.hidden-block:hover {
     background-color: transparent;
     color: black;
 }
