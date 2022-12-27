@@ -4,14 +4,15 @@ from .Enums import QuestionType
 class Question:
     def __init__(self, **params):
         self.__type = None
+        self.__opts_list = []
+        self.__options = {'+': [], '-': [], 'L': [], 'R': [], 'order': []}
 
         self.__theme = params.get('theme', "")
-
         self.__task = params.get('task', "")
         self.__question = params.get('question', "")
 
-        self.__opts_list = params.get('opts', [])
-        self.__options = {'+': [], '-': [], 'L': [], 'R': [], 'order': []}
+        for opt in params.get('opts', []):
+            self.add_option(opt)
 
     def __str__(self):
         return {
@@ -29,16 +30,18 @@ class Question:
             'theme': self.__theme,
             'task': self.__task,
             'question': self.__question,
-            'opts': self.__generate_options
+            'opts': self.__generate_options()
         }
 
-    def add_task(self, task: str) -> None:
+    def set_task(self, task: str) -> None:
         self.__task = task
 
     def set_question(self, question: str) -> None:
         self.__question = question
 
     def append_question(self, line: str) -> None:
+        if self.__question == "":
+            return self.set_question(line)
         self.__question += '\n' + line
 
     def set_theme(self, theme: str):
@@ -54,6 +57,8 @@ class Question:
         if len(parts[0]) < 1:
             return
 
+        parts[1] = parts[1].strip()
+
         # Get rid of # in enter questions
         if parts[0][0] == '#':
             parts[0] = '+' + parts[0][1:]
@@ -66,6 +71,9 @@ class Question:
                 self.__options['order'].insert(idx, ': '.join(parts))
             except ValueError:
                 pass
+
+    def is_complete(self) -> bool:
+        return len(self.__opts_list) > 0
 
     def define_type(self) -> QuestionType:
         # Select
@@ -96,7 +104,6 @@ class Question:
         avg_right = sum([len(x) for x in self.__options['R']]) / len(self.__options['R'])
 
         if avg_right > avg_left:
-            print("Reordering...")
             self.__options['L'], self.__options['R'] = self.__options['R'], self.__options['L']
 
         # Adding empty strings to equalize
