@@ -1,6 +1,9 @@
 from .Enums import QuestionType
 
 
+MAX_OPT_LEN = 3
+
+
 class Question:
     def __init__(self, **params):
         self.__type = None
@@ -24,7 +27,7 @@ class Question:
         }
 
     def compile(self) -> dict:
-        self.update_type()
+        self.__update_type()
         return {
             'type': self.__type,
             'theme': self.__theme,
@@ -47,30 +50,11 @@ class Question:
     def set_theme(self, theme: str):
         self.__theme = theme
 
-    def update_type(self) -> None:
-        self.__type = self.define_type()
-
     def add_option(self, option: str) -> None:
         self.__opts_list.append(option)
 
-        parts = option.split(':', 2)
-        if len(parts[0]) < 1:
-            return
-
-        parts[1] = parts[1].strip()
-
-        # Get rid of # in enter questions
-        if parts[0][0] == '#':
-            parts[0] = '+' + parts[0][1:]
-
-        if parts[0][0] in self.__options.keys():
-            self.__options[parts[0][0]].append(parts[1])
-        else:
-            try:
-                idx = int(parts[0])
-                self.__options['order'].insert(idx, [idx, parts[1]])
-            except ValueError:
-                pass
+    def append_option(self, line: str) -> None:
+        self.__opts_list[-1] += '\n' + line
 
     def is_complete(self) -> bool:
         return len(self.__opts_list) > 0
@@ -95,6 +79,31 @@ class Question:
             return QuestionType.Order
 
         return QuestionType.Unknown
+
+    def __update_type(self) -> None:
+        self.__update_options()
+        self.__type = self.define_type()
+
+    def __update_options(self):
+        for opt in self.__opts_list:
+            parts = opt.split(':', 1)
+            if len(parts[0]) < 1 or len(parts[0]) > MAX_OPT_LEN:
+                return
+
+            parts[1] = parts[1].strip()
+
+            # Get rid of # in enter questions
+            if parts[0][0] == '#':
+                parts[0] = '+' + parts[0][1:]
+
+            if parts[0][0] in self.__options.keys():
+                self.__options[parts[0][0]].append(parts[1])
+            else:
+                try:
+                    idx = int(parts[0])
+                    self.__options['order'].insert(idx, [idx, parts[1]])
+                except ValueError:
+                    pass
 
     def __fix_compliance(self) -> None:
         if len(self.__options['L']) == 0 or len(self.__options['R']) == 0:

@@ -25,7 +25,7 @@ def read_file(path: str) -> list[str]:
 
 
 def get_line_type(line: str) -> tuple[LineType, str]:
-    parts = line.split(':', 2)
+    parts = line.split(':', 1)
 
     if len(parts) < 2:
         return LineType.Unknown, line
@@ -78,8 +78,11 @@ def parse_questions(lines: list[str]) -> list[dict]:
             print(f"Adding qusetion #{len(questions)}")
             curr = Question(theme=current_theme)
 
-        if last_line_type == LineType.Question and line_type == LineType.Unknown:
-            curr.append_question(line)
+        if line_type == LineType.Unknown:
+            if last_line_type == LineType.Question:
+                curr.append_question(line)
+            if last_line_type == LineType.Option:
+                curr.append_option(line)
             continue
 
         match line_type:
