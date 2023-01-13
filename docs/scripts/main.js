@@ -2,6 +2,7 @@ function randInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+let checked = false;
 let q = 0;
 if (!isNaN(Number(window.location.href.split('?')[1])))
     q = Number(window.location.href.split('?')[1]);
@@ -13,6 +14,7 @@ $(document).ready(setData);
 
 /* Making test */
 function setData() {
+    checked = false;
     $("#qid").text(q+1);
     $("#qcnt").text(questions.length);
 
@@ -55,8 +57,6 @@ function setSingleMany() {
             `<p class="${el_class}"><label><input type="${type}"` + (type == 'radio' ? ' onclick="check()"' : '') + `/>${v[0]}</label></p>`
         );
     });
-
-    $("#next").prop('disabled', true);
 }
 
 function setInput() {
@@ -66,8 +66,6 @@ function setInput() {
     questions[q]["opts"].forEach(function(opt){
         $("#answersInp").append(`<li>${opt}</li>`);
     })
-
-    $("#next").prop('disabled', true);
 }
 
 function toTitleCase(str)
@@ -174,10 +172,15 @@ function check() {
     $("#check").prop('disabled', true);
 
     $("#next").prop('disabled', false);
+
+    checked = true;
 }
 
 function next() {
-    window.location.href = "?" + (q < questions.length-1 ? q + 1 : 0);
+    if (!checked)
+        check();
+    else
+        window.location.href = "?" + (q < questions.length-1 ? q + 1 : 0);
 }
 
 function back()
