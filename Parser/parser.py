@@ -3,12 +3,12 @@ import json
 
 from Types import *
 
-SUBJ = "boss"
-VERSION = "1.3"
+SUBJ = "SXEMOTECH"
+VERSION = "1.0"
 
 INPUT = f"questions/{SUBJ}.txt"
 OUTPUT = f"../docs/scripts/questions_{SUBJ}_v{VERSION}.js"
-MAX_TYPE_LEN = 3
+MAX_TYPE_LEN = 5
 
 
 def read_file(path: str) -> list[str]:
@@ -32,13 +32,13 @@ def get_line_type(line: str) -> tuple[LineType, str]:
 
     parts[0] = parts[0].replace(' ', '')
 
-    if 1 > len(parts[0]) > MAX_TYPE_LEN:
+    if not 0 < len(parts[0]) < MAX_TYPE_LEN:
         return LineType.Unknown, line
 
     parts[1] = parts[1].strip()
 
     match parts[0][0]:
-        case 'I':
+        case 'I' | '№':
             return LineType.Index, parts[1]
         case 'S':
             return LineType.Question, parts[1]
@@ -73,16 +73,20 @@ def parse_questions(lines: list[str]) -> list[dict]:
 
         if is_new_question(line_type, curr):
             if curr is not None:
+                curr.set_theme(current_theme)
                 questions.append(curr)
 
             print(f"Adding qusetion #{len(questions)}")
-            curr = Question(theme=current_theme)
+            curr = Question()
 
         if line_type == LineType.Unknown:
             if last_line_type == LineType.Question:
+                # TODO: Check if new sentense or just space
                 curr.append_question(line)
-            if last_line_type == LineType.Option:
+            elif last_line_type == LineType.Option:
                 curr.append_option(line)
+            elif last_line_type == LineType.Theme:
+                current_theme += f" {line}"
             continue
 
         match line_type:
@@ -97,6 +101,7 @@ def parse_questions(lines: list[str]) -> list[dict]:
             case LineType.Question:
                 curr.set_question(line)
             case LineType.Option:
+                # TODO: Class for options and checking option type
                 curr.add_option(line)
 
         last_line_type = line_type
@@ -104,9 +109,17 @@ def parse_questions(lines: list[str]) -> list[dict]:
     if curr is not None:
         questions.append(curr)
 
-    print(f"\nAdded {len(questions)} questions")
+    print(f"\nAdded {len(questions)} questions, verifying...")
+    compiled = [x.compile() for x in questions]
 
-    return [x.compile() for x in questions]
+    for q in compiled:
+        if q['type'] == QuestionType.Unknown:
+            print(f"Unknown question: {q}")
+            compiled.remove(q)
+
+    print(f"\nVerified {len(compiled)} questions, {len(questions) - len(compiled)} questions is invalid")
+
+    return compiled
 
 
 def write_to_file(path: str, questions: list) -> None:

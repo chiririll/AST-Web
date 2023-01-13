@@ -56,8 +56,6 @@ function setSingleMany() {
         );
     });
 
-    $("#back").prop('disabled', true);
-    $("#rand").prop('disabled', true);
     $("#next").prop('disabled', true);
 }
 
@@ -68,6 +66,8 @@ function setInput() {
     questions[q]["opts"].forEach(function(opt){
         $("#answersInp").append(`<li>${opt}</li>`);
     })
+
+    $("#next").prop('disabled', true);
 }
 
 function toTitleCase(str)
@@ -170,14 +170,14 @@ function check() {
     });
 
     $(".hidden-block").removeClass("hidden-block");
-    
-    $("#back").prop('disabled', false);
-    $("#rand").prop('disabled', false);
+
+    $("#check").prop('disabled', true);
+
     $("#next").prop('disabled', false);
 }
 
 function next() {
-    window.location.replace("?" + (q < questions.length-1 ? q + 1 : 0));
+    window.location.href = "?" + (q < questions.length-1 ? q + 1 : 0);
 }
 
 function back()
@@ -186,7 +186,7 @@ function back()
 }
 
 function rand() {
-    window.location.replace("?" + randInt(0, questions.length));
+    window.location.href = "?" + randInt(0, questions.length);
 }
 function results() {
     window.location.replace("analyze.html?" + q);
