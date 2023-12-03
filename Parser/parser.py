@@ -3,7 +3,7 @@ import json
 
 from Types import *
 
-SUBJ = "SXEMOTECH"
+SUBJ = "crypto"
 VERSION = "1.0"
 
 INPUT = f"questions/{SUBJ}.txt"
